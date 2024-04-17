@@ -1,4 +1,5 @@
 from salesforce import models
+from datetime import date
 
 # Create your models here.
 
@@ -21,12 +22,14 @@ class Opportunity(models.Model):
         db_column="StageName", max_length=255, blank=True, null=True
     )
     close_date = models.DateTimeField(
-        db_column="CloseDate",
+        db_column="CloseDate", null=False, default=date(2024, 1, 1)
     )
 
 
 class OppTeam(models.Model):
-    name = models.CharField(verbose_name="OpportunityTeam__c")
+    name = models.CharField(
+        max_length=255, verbose_name="OpportunityTeam__c", blank=True, null=True
+    )
 
     class Meta(models.Model.Meta):
         db_table = "OpportunityTeam__c"

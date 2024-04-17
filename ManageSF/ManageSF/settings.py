@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,11 +93,13 @@ DATABASES = {
     # },
     "salesforce": {
         "ENGINE": "salesforce.backend",
-        "CONSUMER_KEY": "3MVG9pRzvMkjMb6mt_SYx6nzn8qei9mZYWS0unABnHSZ5MN7bXhmH45vshh6iq0ZEyBH05yd3lIzGZIfjJO4a",  # 'client_id'   in OAuth2 terminology
-        "CONSUMER_SECRET": "45161877CE23D40C28B014B2DFB6CCAF20D045146598021DE6CBD3A966CE8218",  # 'client_secret'
-        "USER": "tomdao1995@gmail.com",
-        "PASSWORD": "Amothaiba123!",
-        "HOST": "https://login.salesforce.com",
+        # 'client_id'   in OAuth2 terminology
+        "CONSUMER_KEY": config("sf_client_id"),
+        # 'client_secret'
+        "CONSUMER_SECRET": config("sf_client_secret"),
+        "USER": config("sf_email"),
+        "PASSWORD": config("sf_password"),
+        "HOST": config("sf_host"),
     },
 }
 DATABASE_ROUTERS = ["salesforce.router.ModelRouter"]
